@@ -30,7 +30,7 @@ CAPTIONS = [
     ("Has altın fiyatı anlık", "Fiyat değiştiği an güncellenir"),
     ("Tüm sarrafiye tek ekranda", "Çeyrekten ata liraya, yeni ve eski"),
     ("Değerini hemen hesaplayın", "Gram ya da adet girin, tutarı görün"),
-    ("Mağazamız bir dokunuş uzakta", "Arayın, WhatsApp'tan yazın, yol tarifi alın"),
+    ("Mağazamız bir dokunuş uzakta", "Arayın, WhatsApp'tan yazın, Instagram'da takip edin"),
 ]
 
 
