@@ -15,6 +15,8 @@ Durum işaretleri: ✅ hazır · ⏳ bekliyor · ⚠️ dikkat
 - ⏳ **Android imza anahtarı:** `~/.vatan-signing/` altında; kaybedilirse güncelleme yayınlanamaz.
   Yedeği güvenli bir yerde saklanmalı. Play App Signing açık tutulmalı.
 - ✅ **Apple Team ID:** 4BQQTXY4NF (Eren Can YILDIRIM, bireysel hesap). Bundle ID com.suer.vatankuyumculuk.
+- ✅ **App Store Connect kaydı** açıldı (Apple ID 6823693722) ve 1.0 (1) yapısı yüklendi (16 Ekim 2026).
+  Kayıt Xcode'dan "VatanKuyumculuk" adıyla açıldı; ad "Vatan Kuyumculuk Osmaniye" yapılmalı.
 
 ## Apple App Store
 

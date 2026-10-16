@@ -9,7 +9,8 @@ Karakter sınırları `tools/store/check_lengths.py` ile kontrol edilir.
 | Ad (en fazla 30) | Vatan Kuyumculuk Osmaniye |
 | Birincil dil | Türkçe |
 | Paket kimliği (Bundle ID) | com.suer.vatankuyumculuk |
-| SKU | VATAN-OSMANIYE-001 |
+| SKU | com.suer.vatankuyumculuk (kaydı Xcode açtı, değiştirilemez) |
+| Apple ID | 6823693722 |
 | Birincil kategori | Finans |
 | İkincil kategori | Alışveriş |
 | Fiyat | Ücretsiz |
