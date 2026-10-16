@@ -12,8 +12,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
+        // `adb shell am start -n com.suer.vatankuyumculuk/.MainActivity -e startScreen CALCULATOR` opens that screen.
+        val startScreen = intent.getStringExtra("startScreen")
         setContent {
-            App()
+            App(startScreen)
         }
     }
 }

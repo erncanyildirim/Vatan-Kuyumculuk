@@ -52,8 +52,12 @@ private enum class Destination(val label: String, val icon: ImageVector) {
 @Composable
 internal expect fun SystemBarsEffect(darkTheme: Boolean)
 
+/**
+ * [startScreen] opens a given screen at launch, e.g. "CALCULATOR" or "PRICES:COINS" (screen, then price tab).
+ * Used to capture store screenshots; normal launches pass null.
+ */
 @Composable
-fun App() {
+fun App(startScreen: String? = null) {
     val market = AppGraph.market
     val prefs = AppGraph.preferences
     val theme by prefs.theme.collectAsStateWithLifecycle()
@@ -75,7 +79,9 @@ fun App() {
     SystemBarsEffect(dark)
 
     VatanTheme(theme) {
-        var destination by rememberSaveable { mutableStateOf(Destination.PRICES) }
+        var destination by rememberSaveable {
+            mutableStateOf(Destination.entries.find { it.name == startScreen?.substringBefore(':') } ?: Destination.PRICES)
+        }
         val share = rememberShareText()
         val c = AppTheme.colors
 
@@ -86,6 +92,7 @@ fun App() {
                     favorites = favorites,
                     onToggleFavorite = prefs::toggleFavorite,
                     onRefresh = market::refreshNow,
+                    initialTab = startScreen?.substringAfter(':', ""),
                     modifier = modifier,
                 )
                 Destination.CALCULATOR -> CalculatorScreen(

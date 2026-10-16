@@ -85,9 +85,10 @@ fun PricesScreen(
     favorites: List<String>,
     onToggleFavorite: (String) -> Unit,
     onRefresh: () -> Unit,
+    initialTab: String? = null,
     modifier: Modifier = Modifier,
 ) {
-    var tab by rememberSaveable { mutableStateOf(PriceTab.FAVORITES) }
+    var tab by rememberSaveable { mutableStateOf(PriceTab.entries.find { it.name == initialTab } ?: PriceTab.FAVORITES) }
     var refreshing by rememberSaveable { mutableStateOf(false) }
     LaunchedEffect(refreshing) {
         if (refreshing) {
