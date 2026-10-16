@@ -98,15 +98,15 @@ standart HTTPS/WSS şifrelemesini kullandığı için her yüklemede soru sorulm
 ## İnceleme notu (App Review Information → Notes)
 
 <!-- review -->
-Bu uygulama, Osmaniye'deki Vatan Kuyumculuk mağazasının fiyat uygulamasıdır ve mağaza sahibinin yazılı izniyle, mağaza adına geliştirici Eren Can Yıldırım tarafından yayımlanmaktadır (izin belgesi ektedir).
+Bu uygulama, Osmaniye'deki Vatan Kuyumculuk mağazasının fiyat uygulamasıdır ve mağazayı işleten Eren Can Yıldırım tarafından yayımlanmaktadır.
 
 Uygulama giriş gerektirmez; tüm özellikler açılışta kullanılabilir. Canlı altın ve döviz fiyatları, Türkiye'de kuyumcuların referans aldığı Harem Altın'ın herkese açık fiyat yayınından alınır ve ekranda kaynak olarak belirtilir. Uygulama alım satım, ödeme veya yatırım hizmeti sunmaz; yalnızca bilgi amaçlı fiyat gösterir, hesaplayıcı ve mağaza iletişim bilgilerini içerir.
 
 Hafta sonu piyasalar kapalı olduğunda son kapanış fiyatları gösterilir ve ekranda "Piyasa kapalı" yazar.
 
-This is the price app of Vatan Kuyumculuk, a jewelry store in Osmaniye, Türkiye. It is published on the store's behalf by developer Eren Can Yildirim with the store owner's written authorization (attached). No login is required. Gold and currency prices come from Harem Altın's public price feed, the reference most Turkish jewelers use, and the source is shown in the app. The app does not offer trading, payments or investment services.
+This is the price app of Vatan Kuyumculuk, a jewelry store in Osmaniye, Türkiye. It is published by Eren Can Yildirim, who runs the store. No login is required. Gold and currency prices come from Harem Altın's public price feed, the reference most Turkish jewelers use, and the source is shown in the app. The app does not offer trading, payments or investment services.
 <!-- /review -->
 
 İletişim kişisi: Eren Can Yıldırım, erncanyildirim@gmail.com, telefon: hesapta kayıtlı numara.
 Demo hesap: Gerekmiyor (giriş yok).
-Ek: imzalı `yetki-belgesi.md` çıktısının fotoğrafı veya PDF'i (App Review Information → Attachment).
+Ek: Gerekmiyor (mağazayı geliştirici işletiyor).

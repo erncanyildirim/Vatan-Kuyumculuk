@@ -11,7 +11,8 @@ Durum işaretleri: ✅ hazır · ⏳ bekliyor · ⚠️ dikkat
   çünkü yüklü uygulamalar ayarları oradan okur.
 - ⏳ **Mağaza bilgileri:** Adres, çalışma saatleri ve konum bilinmiyor; uygulamada bu satırlar gizli.
   Öğrenilince `site/api/config` dosyasına yazılır, uygulama güncellemesi gerekmez.
-- ⏳ **Yetki belgesi** imzalanıp taranmalı (`yetki-belgesi.md`).
+- ✅ **Yetki belgesi** gerekmiyor: mağazayı geliştirici (Eren Can Yıldırım) işletiyor. `yetki-belgesi.md`
+  yalnızca Apple veya Google ileride sorarsa diye duruyor.
 - ⏳ **Android imza anahtarı:** `~/.vatan-signing/` altında; kaybedilirse güncelleme yayınlanamaz.
   Yedeği güvenli bir yerde saklanmalı. Play App Signing açık tutulmalı.
 - ✅ **Apple Team ID:** 4BQQTXY4NF (Eren Can YILDIRIM, bireysel hesap). Bundle ID com.suer.vatankuyumculuk.
@@ -22,7 +23,8 @@ Durum işaretleri: ✅ hazır · ⏳ bekliyor · ⚠️ dikkat
 
 - ⚠️ **5.2.1 / 4.1 – İşletme adı kişisel hesapta.** En yüksek risk bu. Apple, bir işletmenin adını ve
   logosunu taşıyan uygulamanın o işletmenin hesabından yayınlanmasını tercih eder. Seçenekler:
-  1. Kişisel hesap + imzalı yetki belgesi (inceleme notuna ek). Çoğu zaman kabul edilir, bazen ret gelir.
+  1. Kişisel hesap; inceleme notunda mağazayı geliştiricinin işlettiği yazıyor. Çoğu zaman kabul edilir,
+     ret gelirse mağazayla bağı gösteren bir belge (vergi levhası vb.) yanıta eklenir.
   2. Mağaza sahibi adına **kuruluş hesabı**: şahıs şirketi D-U-N-S numarasını ücretsiz alabilir,
      yıllık ücret aynıdır (99 USD). Reddedilme riski en düşük yol budur.
 - ⚠️ **4.2.6 / 4.3 – Şablon uygulama.** Aynı kod başka bir kuyumcu için de yayında. Apple, şablondan
@@ -45,8 +47,8 @@ Durum işaretleri: ✅ hazır · ⏳ bekliyor · ⚠️ dikkat
 ## Google Play
 
 - ⚠️ **Kişisel hesap kuralı:** 12 test kullanıcısı, 14 gün kesintisiz kapalı test, sonra üretim erişimi başvurusu.
-- ⚠️ **Taklit / yetki (Impersonation):** İşletme adı kullanıldığı için Google da yetki sorabilir;
-  aynı yetki belgesi kullanılır.
+- ⚠️ **Taklit (Impersonation):** İşletme adı kullanıldığı için Google mağazayla bağı sorabilir;
+  mağazayı geliştirici işlettiği için vergi levhası gibi bir belge yeterli olur.
 - ✅ **Veri güvenliği:** "Veri toplanmıyor ve paylaşılmıyor".
 - ✅ **Finansal özellikler beyanı:** "Finansal özellik sunmuyor" (yalnızca fiyat gösterimi).
 - ✅ **Hedef kitle:** 18+ (Aileler politikası dışı).
