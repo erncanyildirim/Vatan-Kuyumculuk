@@ -2,10 +2,12 @@
 
 usage: make_store_images.py <raw_dir> <project_root>
 
-<raw_dir> must contain iphone-1..4.png (1206x2622, iPhone 6.3" — the size App Store Connect asks for) and ipad-1..4.png
-(2064x2752, iPad 13"), captured from the Release build with a 09:41 status bar.
+<raw_dir> must contain iphone-1..4.png (1206x2622, iPhone 6.3") and ipad-1..4.png (2064x2752, iPad 13"), captured
+from the Release build with a 09:41 status bar. Optional iphone69-1..4.png (1320x2868, iPhone 6.9") are captioned too.
+Capture: tools/store/capture_screenshots.sh.
 Outputs:
   store-assets/app-store/screenshots/iphone-6.3/  captioned, 1206x2622
+  store-assets/app-store/screenshots/iphone-6.9/  captioned, 1320x2868 (when iphone69-* exist)
   store-assets/app-store/screenshots/ipad-13/     raw, 2064x2752
   store-assets/google-play/screenshots/           captioned, 1080x1920
   store-assets/google-play/feature-graphic.png    1024x500
@@ -134,6 +136,15 @@ def main():
         ipad = f"{RAW}/ipad-{i}.png"
         assert Image.open(ipad).size == (2064, 2752), ipad
         shutil.copyfile(ipad, f"{ipad_dir}/{i:02d}.png")
+
+    big_dir = f"{ROOT}/store-assets/app-store/screenshots/iphone-6.9"
+    for i, (title, sub) in enumerate(CAPTIONS, start=1):
+        src = f"{RAW}/iphone69-{i}.png"
+        if not os.path.exists(src):
+            break
+        assert Image.open(src).size == (1320, 2868), src
+        os.makedirs(big_dir, exist_ok=True)
+        captioned(src, (1320, 2868), title, sub).save(f"{big_dir}/{i:02d}.png")
 
     feature_graphic(f"{ROOT}/store-assets/google-play/feature-graphic.png")
 
