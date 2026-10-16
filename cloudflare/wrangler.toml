@@ -1,0 +1,14 @@
+# Cloudflare Pages project for the website, the admin panel and /api/config.
+# Not used yet: until Vatan has its own domain the site is served by GitHub Pages
+# (.github/workflows/pages.yml) without the admin panel. See docs/yayin.md.
+# Deploy: npm run deploy   (builds nothing; run the Gradle web build first, see README)
+name = "vatankuyumculuk"
+compatibility_date = "2026-09-01"
+pages_build_output_dir = "../webApp/build/dist/composeWebCompatibility/productionExecutable"
+
+# Stores the jeweler's configuration. Create with:
+#   npx wrangler kv namespace create CONFIG
+# and paste the printed id below.
+[[kv_namespaces]]
+binding = "CONFIG"
+id = "REPLACE_WITH_VATAN_KV_NAMESPACE_ID"

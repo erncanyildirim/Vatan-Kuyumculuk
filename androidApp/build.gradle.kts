@@ -1,3 +1,4 @@
+import java.util.Properties
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -19,6 +20,15 @@ dependencies {
     debugImplementation(libs.compose.uiTooling)
 }
 
+// Release signing: the upload key and its passwords live outside the repo (docs/yayin.md).
+// Without the file, release builds are simply unsigned.
+val signing = Properties().apply {
+    val path = System.getenv("VATAN_SIGNING_PROPERTIES")
+        ?: "${System.getProperty("user.home")}/.vatan-signing/keystore.properties"
+    val f = file(path)
+    if (f.isFile) f.inputStream().use { load(it) }
+}
+
 android {
     namespace = "com.suer.vatankuyumculuk"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
@@ -30,6 +40,16 @@ android {
         versionCode = 1
         versionName = "1.0"
     }
+    signingConfigs {
+        if (!signing.isEmpty) {
+            create("release") {
+                storeFile = file(signing.getProperty("storeFile"))
+                storePassword = signing.getProperty("storePassword")
+                keyAlias = signing.getProperty("keyAlias")
+                keyPassword = signing.getProperty("keyPassword")
+            }
+        }
+    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -37,6 +57,7 @@ android {
     }
     buildTypes {
         release {
+            signingConfig = signingConfigs.findByName("release")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),

@@ -17,3 +17,10 @@ captures
 !*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
 node_modules/
+# Signing material never goes into git (see docs/yayin.md)
+*.jks
+*.keystore
+*.p8
+*.p12
+*.mobileprovision
+keystore.properties

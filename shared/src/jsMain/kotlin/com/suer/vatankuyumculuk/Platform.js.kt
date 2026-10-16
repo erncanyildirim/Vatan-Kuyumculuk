@@ -1,14 +1,22 @@
 package com.suer.vatankuyumculuk
 
-import web.navigator.navigator
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import kotlinx.browser.window
 
-class JsPlatform: Platform {
-    private val userAgent = navigator.userAgent
-    private val browserList = listOf("Chrome", "Firefox", "Safari", "Edge")
+internal actual val platformKind: PlatformKind = PlatformKind.WEB
 
-    override val name: String = userAgent.findAnyOf(browserList, ignoreCase = true)
-            ?.let { (startIndex) -> userAgent.substring(startIndex).substringBefore(" ") }
-            ?: "Unknown"
+private fun webShare(text: String): Boolean =
+    js("(navigator.share ? (navigator.share({ text: text }).catch(function () {}), true) : (navigator.clipboard ? (navigator.clipboard.writeText(text), false) : false))")
+
+@Composable
+internal actual fun rememberShareText(): (String) -> Unit = remember {
+    { text: String -> webShare(text); Unit }
 }
 
-actual fun getPlatform(): Platform = JsPlatform()
+internal actual fun platformConfigEndpoints(): List<String> {
+    // The site serves its own /api/config; the public endpoints are the fallback.
+    val origin = runCatching { window.location.origin }.getOrNull().orEmpty()
+    return if (origin.startsWith("http")) (listOf("$origin/api/config") + AppLinks.configEndpoints).distinct()
+    else AppLinks.configEndpoints
+}

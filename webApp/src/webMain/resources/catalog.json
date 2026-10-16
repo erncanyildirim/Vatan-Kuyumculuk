@@ -1,0 +1,474 @@
+{
+  "products": [
+    {
+      "code": "ALTIN",
+      "name": "Has Altın",
+      "variant": null,
+      "group": "GOLD",
+      "groupTitle": "Altın",
+      "decimals": 2,
+      "currency": "₺",
+      "unitHint": "24 ayar"
+    },
+    {
+      "code": "KULCEALTIN",
+      "name": "Gram Altın",
+      "variant": null,
+      "group": "GOLD",
+      "groupTitle": "Altın",
+      "decimals": 2,
+      "currency": "₺",
+      "unitHint": "külçe"
+    },
+    {
+      "code": "AYAR22",
+      "name": "22 Ayar Bilezik",
+      "variant": null,
+      "group": "GOLD",
+      "groupTitle": "Altın",
+      "decimals": 2,
+      "currency": "₺",
+      "unitHint": "gr"
+    },
+    {
+      "code": "AYAR14",
+      "name": "14 Ayar Altın",
+      "variant": null,
+      "group": "GOLD",
+      "groupTitle": "Altın",
+      "decimals": 2,
+      "currency": "₺",
+      "unitHint": "gr"
+    },
+    {
+      "code": "ONS",
+      "name": "Ons Altın",
+      "variant": null,
+      "group": "GOLD",
+      "groupTitle": "Altın",
+      "decimals": 2,
+      "currency": "$",
+      "unitHint": "ons"
+    },
+    {
+      "code": "USDKG",
+      "name": "Kilo Altın ($)",
+      "variant": null,
+      "group": "GOLD",
+      "groupTitle": "Altın",
+      "decimals": 0,
+      "currency": "$",
+      "unitHint": "kg"
+    },
+    {
+      "code": "EURKG",
+      "name": "Kilo Altın (€)",
+      "variant": null,
+      "group": "GOLD",
+      "groupTitle": "Altın",
+      "decimals": 0,
+      "currency": "€",
+      "unitHint": "kg"
+    },
+    {
+      "code": "CEYREK_YENI",
+      "name": "Çeyrek Altın",
+      "variant": "Yeni",
+      "group": "COINS",
+      "groupTitle": "Sarrafiye",
+      "decimals": 0,
+      "currency": "₺",
+      "unitHint": null
+    },
+    {
+      "code": "CEYREK_ESKI",
+      "name": "Çeyrek Altın",
+      "variant": "Eski",
+      "group": "COINS",
+      "groupTitle": "Sarrafiye",
+      "decimals": 0,
+      "currency": "₺",
+      "unitHint": null
+    },
+    {
+      "code": "YARIM_YENI",
+      "name": "Yarım Altın",
+      "variant": "Yeni",
+      "group": "COINS",
+      "groupTitle": "Sarrafiye",
+      "decimals": 0,
+      "currency": "₺",
+      "unitHint": null
+    },
+    {
+      "code": "YARIM_ESKI",
+      "name": "Yarım Altın",
+      "variant": "Eski",
+      "group": "COINS",
+      "groupTitle": "Sarrafiye",
+      "decimals": 0,
+      "currency": "₺",
+      "unitHint": null
+    },
+    {
+      "code": "TEK_YENI",
+      "name": "Tam Altın",
+      "variant": "Yeni",
+      "group": "COINS",
+      "groupTitle": "Sarrafiye",
+      "decimals": 0,
+      "currency": "₺",
+      "unitHint": null
+    },
+    {
+      "code": "TEK_ESKI",
+      "name": "Tam Altın",
+      "variant": "Eski",
+      "group": "COINS",
+      "groupTitle": "Sarrafiye",
+      "decimals": 0,
+      "currency": "₺",
+      "unitHint": null
+    },
+    {
+      "code": "ATA_YENI",
+      "name": "Ata Lira",
+      "variant": "Yeni",
+      "group": "COINS",
+      "groupTitle": "Sarrafiye",
+      "decimals": 0,
+      "currency": "₺",
+      "unitHint": null
+    },
+    {
+      "code": "ATA_ESKI",
+      "name": "Ata Lira",
+      "variant": "Eski",
+      "group": "COINS",
+      "groupTitle": "Sarrafiye",
+      "decimals": 0,
+      "currency": "₺",
+      "unitHint": null
+    },
+    {
+      "code": "GREMESE_YENI",
+      "name": "Gremse",
+      "variant": "Yeni",
+      "group": "COINS",
+      "groupTitle": "Sarrafiye",
+      "decimals": 0,
+      "currency": "₺",
+      "unitHint": "2,5 lira"
+    },
+    {
+      "code": "GREMESE_ESKI",
+      "name": "Gremse",
+      "variant": "Eski",
+      "group": "COINS",
+      "groupTitle": "Sarrafiye",
+      "decimals": 0,
+      "currency": "₺",
+      "unitHint": "2,5 lira"
+    },
+    {
+      "code": "ATA5_YENI",
+      "name": "Ata Beşli",
+      "variant": "Yeni",
+      "group": "COINS",
+      "groupTitle": "Sarrafiye",
+      "decimals": 0,
+      "currency": "₺",
+      "unitHint": null
+    },
+    {
+      "code": "ATA5_ESKI",
+      "name": "Ata Beşli",
+      "variant": "Eski",
+      "group": "COINS",
+      "groupTitle": "Sarrafiye",
+      "decimals": 0,
+      "currency": "₺",
+      "unitHint": null
+    },
+    {
+      "code": "USDTRY",
+      "name": "Amerikan Doları",
+      "variant": null,
+      "group": "CURRENCY",
+      "groupTitle": "Döviz",
+      "decimals": 4,
+      "currency": "₺",
+      "unitHint": "USD"
+    },
+    {
+      "code": "EURTRY",
+      "name": "Euro",
+      "variant": null,
+      "group": "CURRENCY",
+      "groupTitle": "Döviz",
+      "decimals": 4,
+      "currency": "₺",
+      "unitHint": "EUR"
+    },
+    {
+      "code": "GBPTRY",
+      "name": "İngiliz Sterlini",
+      "variant": null,
+      "group": "CURRENCY",
+      "groupTitle": "Döviz",
+      "decimals": 4,
+      "currency": "₺",
+      "unitHint": "GBP"
+    },
+    {
+      "code": "CHFTRY",
+      "name": "İsviçre Frangı",
+      "variant": null,
+      "group": "CURRENCY",
+      "groupTitle": "Döviz",
+      "decimals": 4,
+      "currency": "₺",
+      "unitHint": "CHF"
+    },
+    {
+      "code": "SARTRY",
+      "name": "Suudi Riyali",
+      "variant": null,
+      "group": "CURRENCY",
+      "groupTitle": "Döviz",
+      "decimals": 4,
+      "currency": "₺",
+      "unitHint": "SAR"
+    },
+    {
+      "code": "AUDTRY",
+      "name": "Avustralya Doları",
+      "variant": null,
+      "group": "CURRENCY",
+      "groupTitle": "Döviz",
+      "decimals": 4,
+      "currency": "₺",
+      "unitHint": "AUD"
+    },
+    {
+      "code": "CADTRY",
+      "name": "Kanada Doları",
+      "variant": null,
+      "group": "CURRENCY",
+      "groupTitle": "Döviz",
+      "decimals": 4,
+      "currency": "₺",
+      "unitHint": "CAD"
+    },
+    {
+      "code": "KWDTRY",
+      "name": "Kuveyt Dinarı",
+      "variant": null,
+      "group": "CURRENCY",
+      "groupTitle": "Döviz",
+      "decimals": 4,
+      "currency": "₺",
+      "unitHint": "KWD"
+    },
+    {
+      "code": "JODTRY",
+      "name": "Ürdün Dinarı",
+      "variant": null,
+      "group": "CURRENCY",
+      "groupTitle": "Döviz",
+      "decimals": 4,
+      "currency": "₺",
+      "unitHint": "JOD"
+    },
+    {
+      "code": "JPYTRY",
+      "name": "Japon Yeni",
+      "variant": null,
+      "group": "CURRENCY",
+      "groupTitle": "Döviz",
+      "decimals": 4,
+      "currency": "₺",
+      "unitHint": "JPY"
+    },
+    {
+      "code": "DKKTRY",
+      "name": "Danimarka Kronu",
+      "variant": null,
+      "group": "CURRENCY",
+      "groupTitle": "Döviz",
+      "decimals": 4,
+      "currency": "₺",
+      "unitHint": "DKK"
+    },
+    {
+      "code": "NOKTRY",
+      "name": "Norveç Kronu",
+      "variant": null,
+      "group": "CURRENCY",
+      "groupTitle": "Döviz",
+      "decimals": 4,
+      "currency": "₺",
+      "unitHint": "NOK"
+    },
+    {
+      "code": "SEKTRY",
+      "name": "İsveç Kronu",
+      "variant": null,
+      "group": "CURRENCY",
+      "groupTitle": "Döviz",
+      "decimals": 4,
+      "currency": "₺",
+      "unitHint": "SEK"
+    },
+    {
+      "code": "EURUSD",
+      "name": "EUR / USD",
+      "variant": null,
+      "group": "PARITY",
+      "groupTitle": "Parite",
+      "decimals": 4,
+      "currency": "",
+      "unitHint": null
+    },
+    {
+      "code": "GBPUSD",
+      "name": "GBP / USD",
+      "variant": null,
+      "group": "PARITY",
+      "groupTitle": "Parite",
+      "decimals": 4,
+      "currency": "",
+      "unitHint": null
+    },
+    {
+      "code": "USDCHF",
+      "name": "USD / CHF",
+      "variant": null,
+      "group": "PARITY",
+      "groupTitle": "Parite",
+      "decimals": 4,
+      "currency": "",
+      "unitHint": null
+    },
+    {
+      "code": "USDJPY",
+      "name": "USD / JPY",
+      "variant": null,
+      "group": "PARITY",
+      "groupTitle": "Parite",
+      "decimals": 3,
+      "currency": "",
+      "unitHint": null
+    },
+    {
+      "code": "USDCAD",
+      "name": "USD / CAD",
+      "variant": null,
+      "group": "PARITY",
+      "groupTitle": "Parite",
+      "decimals": 4,
+      "currency": "",
+      "unitHint": null
+    },
+    {
+      "code": "AUDUSD",
+      "name": "AUD / USD",
+      "variant": null,
+      "group": "PARITY",
+      "groupTitle": "Parite",
+      "decimals": 4,
+      "currency": "",
+      "unitHint": null
+    },
+    {
+      "code": "USDSAR",
+      "name": "USD / SAR",
+      "variant": null,
+      "group": "PARITY",
+      "groupTitle": "Parite",
+      "decimals": 4,
+      "currency": "",
+      "unitHint": null
+    },
+    {
+      "code": "GUMUSTRY",
+      "name": "Gümüş",
+      "variant": null,
+      "group": "METALS",
+      "groupTitle": "Emtia",
+      "decimals": 2,
+      "currency": "₺",
+      "unitHint": "gr"
+    },
+    {
+      "code": "XAGUSD",
+      "name": "Gümüş Ons",
+      "variant": null,
+      "group": "METALS",
+      "groupTitle": "Emtia",
+      "decimals": 2,
+      "currency": "$",
+      "unitHint": "ons"
+    },
+    {
+      "code": "GUMUSUSD",
+      "name": "Gümüş ($/kg)",
+      "variant": null,
+      "group": "METALS",
+      "groupTitle": "Emtia",
+      "decimals": 0,
+      "currency": "$",
+      "unitHint": "kg"
+    },
+    {
+      "code": "PLATIN",
+      "name": "Platin ($/kg)",
+      "variant": null,
+      "group": "METALS",
+      "groupTitle": "Emtia",
+      "decimals": 0,
+      "currency": "$",
+      "unitHint": "kg"
+    },
+    {
+      "code": "XPTUSD",
+      "name": "Platin Ons",
+      "variant": null,
+      "group": "METALS",
+      "groupTitle": "Emtia",
+      "decimals": 2,
+      "currency": "$",
+      "unitHint": "ons"
+    },
+    {
+      "code": "PALADYUM",
+      "name": "Paladyum ($/kg)",
+      "variant": null,
+      "group": "METALS",
+      "groupTitle": "Emtia",
+      "decimals": 0,
+      "currency": "$",
+      "unitHint": "kg"
+    },
+    {
+      "code": "XPDUSD",
+      "name": "Paladyum Ons",
+      "variant": null,
+      "group": "METALS",
+      "groupTitle": "Emtia",
+      "decimals": 2,
+      "currency": "$",
+      "unitHint": "ons"
+    },
+    {
+      "code": "XAUXAG",
+      "name": "Altın / Gümüş Oranı",
+      "variant": null,
+      "group": "METALS",
+      "groupTitle": "Emtia",
+      "decimals": 2,
+      "currency": "",
+      "unitHint": null
+    }
+  ]
+}

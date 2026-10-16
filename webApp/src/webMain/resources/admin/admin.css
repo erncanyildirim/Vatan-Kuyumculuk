@@ -1,0 +1,71 @@
+.admin { max-width: 860px; padding-bottom: 120px; }
+.grow { flex: 1; }
+.narrow { max-width: 380px; margin: 40px auto; }
+.error { color: #FF6B6B; min-height: 1.2em; }
+.row { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin: 12px 0; }
+
+input, select, textarea, button { font: inherit; color: var(--text); }
+input, select, textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 10px 12px;
+}
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
+label { display: block; font-size: 14px; color: var(--muted); margin: 10px 0; }
+label input, label select, label textarea { margin-top: 4px; }
+label.check { display: flex; gap: 10px; align-items: center; color: var(--text); }
+label.check input { width: auto; margin: 0; }
+fieldset { border: 1px solid var(--line); border-radius: 12px; margin: 12px 0; padding: 8px 12px 12px; }
+legend { color: var(--muted); font-size: 14px; padding: 0 6px; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+button { cursor: pointer; border-radius: 12px; padding: 10px 18px; border: 1px solid var(--line); background: var(--card); font-weight: 600; }
+button.primary { background: #E9B949; color: #0B1020; border-color: #E9B949; }
+button.primary:disabled { opacity: 0.45; cursor: default; }
+button.ghost { background: transparent; }
+button.wide { width: 100%; margin-top: 8px; }
+
+.tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+.tabs button { border-radius: 999px; white-space: nowrap; }
+.tabs button[aria-selected="true"] { background: #E9B949; color: #0B1020; border-color: #E9B949; }
+
+.tip { font-size: 14px; color: var(--muted); }
+.tip strong { color: var(--text); }
+.pill { font-size: 13px; padding: 4px 10px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); }
+.pill.live { color: #3DDC97; }
+.pill.off { color: #FF6B6B; }
+
+.group-title { margin: 20px 4px 6px; font-size: 13px; letter-spacing: 0.4px; color: var(--muted); text-transform: uppercase; }
+.product { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; margin: 8px 0; }
+.product.changed { border-color: #E9B949; }
+.product.hidden-product { opacity: 0.55; }
+.product .head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.product .name { font-weight: 700; flex: 1; min-width: 140px; }
+.product .name small { color: var(--muted); font-weight: 500; margin-left: 6px; }
+.product .live { font-variant-numeric: tabular-nums; font-size: 14px; color: var(--muted); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.seg button { border: 0; border-radius: 0; padding: 6px 10px; font-size: 13px; background: transparent; }
+.seg button[aria-pressed="true"] { background: #E9B949; color: #0B1020; }
+.product .body { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px 12px; margin-top: 10px; }
+.product .body label { margin: 0; }
+.product .result { margin-top: 8px; font-size: 14px; font-variant-numeric: tabular-nums; }
+.product .result b { color: var(--text); }
+
+.savebar {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    display: flex; gap: 12px; align-items: center; justify-content: flex-end;
+    padding: 12px max(16px, calc((100vw - 860px) / 2 + 16px));
+    background: var(--card); border-top: 1px solid var(--line);
+}
+.savebar #save-status { flex: 1; }
+.hours-row { display: grid; grid-template-columns: 1fr 90px 90px auto; gap: 8px; align-items: center; margin: 6px 0; }
+.days { display: flex; gap: 4px; flex-wrap: wrap; }
+.days label { margin: 0; display: inline-flex; align-items: center; gap: 2px; color: var(--text); font-size: 13px; }
+.days input { width: auto; margin: 0; }
+@media (max-width: 560px) {
+    .hours-row { grid-template-columns: 1fr 1fr; }
+    .hours-row .days { grid-column: 1 / -1; }
+}
+input:invalid { border-color: #FF6B6B; }

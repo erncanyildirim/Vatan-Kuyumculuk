@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "version": 1,
+  "updatedAt": "2026-10-16T12:00:00Z",
+  "feed": { "url": "wss://hrmsocketonly.haremaltin.com", "enabled": true },
+  "store": {
+    "name": "Vatan Kuyumculuk",
+    "city": "Osmaniye",
+    "phone": "+905054348592",
+    "whatsapp": "+905054348592",
+    "address": "",
+    "mapsQuery": "Vatan Kuyumculuk Osmaniye",
+    "lat": null,
+    "lng": null,
+    "hoursText": "",
+    "openingHours": [],
+    "instagram": "vatankuyumcu.80",
+    "email": "",
+    "website": ""
+  },
+  "announcement": { "enabled": false, "text": "", "style": "info" },
+  "products": {}
+}

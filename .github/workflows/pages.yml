@@ -1,0 +1,53 @@
+name: Pages
+
+# Publishes the website (web app, /gizlilik/, /destek/) and /api/config to GitHub Pages:
+# https://erncanyildirim.github.io/Vatan-Kuyumculuk/
+# The admin panel needs Cloudflare Pages Functions, so it is left out here (see docs/yayin.md).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Build web
+        run: ./gradlew :webApp:composeCompatibilityBrowserDistribution --console=plain
+      - name: Assemble site
+        run: |
+          cp -R webApp/build/dist/composeWebCompatibility/productionExecutable _site
+          rm -rf _site/admin
+          mkdir -p _site/api
+          cp site/api/config _site/api/config
+          touch _site/.nojekyll
+          test -f _site/gizlilik/index.html && test -f _site/destek/index.html && test -f _site/index.html
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

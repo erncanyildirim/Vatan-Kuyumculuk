@@ -1,0 +1,77 @@
+/* Styles for the static pages (gizlilik, destek). The app itself does not use this file. */
+:root {
+    --bg: #0B1020;
+    --card: #151C33;
+    --line: #283152;
+    --text: #F4F1EA;
+    --muted: #A3A9BC;
+    --gold: #E9B949;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg: #F7F5F0;
+        --card: #FFFFFF;
+        --line: #E2DCCD;
+        --text: #121726;
+        --muted: #545B6E;
+        --gold: #7C5A12;
+    }
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 16px 64px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+header img { border-radius: 12px; }
+
+header a { color: var(--text); text-decoration: none; font-weight: 700; font-size: 18px; }
+
+h1 { font-size: 28px; line-height: 1.25; margin: 0 0 8px; }
+
+h2 { font-size: 19px; margin: 32px 0 8px; }
+
+p, li { color: var(--text); }
+
+.muted { color: var(--muted); font-size: 14px; }
+
+a { color: var(--gold); }
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 16px 20px;
+    margin: 16px 0;
+}
+
+.buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+
+.buttons a {
+    display: inline-block;
+    padding: 10px 16px;
+    border-radius: 12px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+}

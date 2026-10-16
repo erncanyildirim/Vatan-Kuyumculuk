@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Yönetim Paneli · Vatan Kuyumculuk</title>
+    <meta name="theme-color" content="#0B1020">
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="stylesheet" href="../page.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<main class="admin">
+    <header>
+        <img src="../icons/icon-192.png" width="40" height="40" alt="">
+        <div class="grow">
+            <a href="../">Vatan Kuyumculuk</a>
+            <div class="muted">Yönetim paneli</div>
+        </div>
+        <button id="logout" class="ghost" hidden>Çıkış</button>
+    </header>
+
+    <!-- Login -->
+    <section id="login-view" hidden>
+        <form id="login-form" class="card narrow">
+            <h1>Giriş</h1>
+            <label for="password">Şifre</label>
+            <input id="password" type="password" autocomplete="current-password" required>
+            <p id="login-error" class="error" role="alert"></p>
+            <button type="submit" class="primary wide">Giriş yap</button>
+        </form>
+    </section>
+
+    <!-- Editor -->
+    <section id="editor-view" hidden>
+        <nav class="tabs" role="tablist">
+            <button role="tab" data-tab="prices" aria-selected="true">Fiyatlar</button>
+            <button role="tab" data-tab="store" aria-selected="false">Mağaza</button>
+            <button role="tab" data-tab="announcement" aria-selected="false">Duyuru</button>
+            <button role="tab" data-tab="advanced" aria-selected="false">Gelişmiş</button>
+        </nav>
+
+        <div data-panel="prices">
+            <div class="card tip">
+                <strong>Nasıl çalışır?</strong> Her ürün varsayılan olarak Harem Altın'ın canlı fiyatını gösterir.
+                <em>Fark ekle</em> ile canlı fiyata TL veya yüzde ekleyip çıkarabilir, <em>Sabit fiyat</em> ile
+                fiyatı elle yazabilirsiniz. Değişiklikler kaydettikten sonra 2 dakika içinde tüm uygulamalara ulaşır.
+            </div>
+            <div class="row">
+                <span id="feed-status" class="pill">Canlı fiyatlar bağlanıyor…</span>
+                <select id="group-filter" aria-label="Kategori">
+                    <option value="">Tüm ürünler</option>
+                </select>
+            </div>
+            <div id="products"></div>
+        </div>
+
+        <div data-panel="store" hidden>
+            <div class="card form">
+                <label>Mağaza adı <input data-field="store.name" maxlength="60"></label>
+                <label>Şehir <input data-field="store.city" maxlength="40"></label>
+                <label>Telefon <input data-field="store.phone" inputmode="tel" placeholder="+905054348592" maxlength="20"></label>
+                <label>WhatsApp <input data-field="store.whatsapp" inputmode="tel" placeholder="+905054348592" maxlength="20"></label>
+                <label>Adres <textarea data-field="store.address" rows="2" maxlength="200"></textarea></label>
+                <label>Harita araması <input data-field="store.mapsQuery" maxlength="120" placeholder="Vatan Kuyumculuk Osmaniye"></label>
+                <div class="two">
+                    <label>Enlem <input data-field="store.lat" inputmode="decimal" placeholder="37.0742"></label>
+                    <label>Boylam <input data-field="store.lng" inputmode="decimal" placeholder="36.2478"></label>
+                </div>
+                <p class="muted">Enlem ve boylamı Google Haritalar'da mağazaya uzun basıp kopyalayabilirsiniz. Boş bırakılırsa harita aramasıyla açılır.</p>
+                <label>Çalışma saatleri (uygulamada görünen metin) <input data-field="store.hoursText" maxlength="120"></label>
+                <fieldset>
+                    <legend>"Şu an açık" hesaplaması</legend>
+                    <div id="hours"></div>
+                    <button type="button" id="add-hours" class="ghost">+ Saat satırı ekle</button>
+                </fieldset>
+                <label>Instagram kullanıcı adı <input data-field="store.instagram" maxlength="60" placeholder="vatankuyumculuk"></label>
+                <label>E-posta <input data-field="store.email" type="email" maxlength="100"></label>
+            </div>
+        </div>
+
+        <div data-panel="announcement" hidden>
+            <div class="card form">
+                <label class="check"><input type="checkbox" data-field="announcement.enabled"> Duyuruyu göster</label>
+                <label>Duyuru metni <textarea data-field="announcement.text" rows="3" maxlength="280"
+                        placeholder="Örn: Bayram nedeniyle mağazamız 1–3 Nisan kapalıdır."></textarea></label>
+                <label>Görünüm
+                    <select data-field="announcement.style">
+                        <option value="info">Bilgi (sarı)</option>
+                        <option value="warning">Uyarı (turuncu)</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+
+        <div data-panel="advanced" hidden>
+            <div class="card form">
+                <label class="check"><input type="checkbox" data-field="feed.enabled"> Canlı fiyat akışı açık</label>
+                <p class="muted">Kapatırsanız uygulamalar yalnızca sabit fiyat girdiğiniz ürünleri gösterir.</p>
+                <label>Fiyat kaynağı adresi <input data-field="feed.url" maxlength="200"></label>
+                <p class="muted">Harem Altın adresini değiştirirse buradan güncelleyebilirsiniz; uygulama güncellemesi gerekmez.</p>
+            </div>
+        </div>
+
+        <div class="savebar">
+            <span id="save-status" class="muted" role="status"></span>
+            <button id="save" class="primary" disabled>Kaydet</button>
+        </div>
+    </section>
+</main>
+<script type="module" src="admin.js"></script>
+</body>
+</html>
