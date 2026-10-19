@@ -19,10 +19,13 @@ object AppLinks {
     /** Public site: privacy policy, support page and the published config. */
     const val SITE_URL = "https://erncanyildirim.github.io/Vatan-Kuyumculuk"
 
+    /** Cloudflare Pages site with the admin panel; its /api/config holds the jeweler's settings. */
+    const val ADMIN_SITE_URL = "https://vatankuyumculuk.pages.dev"
+
     const val PRIVACY_PATH = "/gizlilik/"
     const val SUPPORT_PATH = "/destek/"
 
-    val configEndpoints: List<String> = listOf("$SITE_URL/api/config")
+    val configEndpoints: List<String> = listOf("$ADMIN_SITE_URL/api/config", "$SITE_URL/api/config")
 
     fun privacyUrl(base: String = SITE_URL) = base + PRIVACY_PATH
     fun supportUrl(base: String = SITE_URL) = base + SUPPORT_PATH
