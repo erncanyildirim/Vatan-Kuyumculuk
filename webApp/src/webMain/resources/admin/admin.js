@@ -347,7 +347,8 @@ function renderHours() {
 
 function updateDirty() {
   const dirty = normalized(config) !== saved;
-  const invalid = $$("#editor-view input:invalid").length > 0;
+  // The password form has its own submit button; its empty required fields must not block saving.
+  const invalid = $$("#editor-view input:invalid").some((i) => !i.closest("#password-form"));
   $("#save").disabled = !dirty || invalid || saving;
   if (invalid) {
     $("#save-status").textContent = "Hatalı alanları düzeltin (kırmızı çerçeveli)";

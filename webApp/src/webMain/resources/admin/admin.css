@@ -71,3 +71,4 @@ button.wide { width: 100%; margin-top: 8px; }
 input:invalid { border-color: #FF6B6B; }
 .ok { color: #3DDC97; }
 .card h2 { margin: 0 0 4px; font-size: 18px; }
+#password-form input:invalid { border-color: var(--line); }
