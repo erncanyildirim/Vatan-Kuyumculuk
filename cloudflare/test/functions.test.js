@@ -5,6 +5,8 @@ import { issueToken, verifyToken } from "../functions/_lib/auth.js";
 import { sanitizeConfig, ValidationError } from "../functions/_lib/config.js";
 import * as adminConfig from "../functions/api/admin/config.js";
 import * as login from "../functions/api/admin/login.js";
+import * as password from "../functions/api/admin/password/index.js";
+import * as passwordCode from "../functions/api/admin/password/code.js";
 import * as publicConfig from "../functions/api/config.js";
 
 class MemoryKV {
@@ -130,4 +132,61 @@ test("login locks after repeated failures", async () => {
   }
   const locked = await login.onRequestPost({ request: req("/api/admin/login", { method: "POST", body: { password: "dogru-sifre" } }), env: e });
   assert.equal(locked.status, 429);
+});
+
+test("password change with an e-mailed code", async () => {
+  const sent = [];
+  const e = {
+    ...env(),
+    ADMIN_EMAIL: "sahip@example.com",
+    MAILER: { fetch: async (_url, init) => { sent.push(JSON.parse(init.body)); return new Response("ok"); } },
+  };
+  const loginWith = (password) => login.onRequestPost({ request: req("/api/admin/login", { method: "POST", body: { password } }), env: e });
+  const { token } = await (await loginWith("dogru-sifre")).json();
+
+  const noAuth = await passwordCode.onRequestPost({ request: req("/api/admin/password/code", { method: "POST", body: { purpose: "change", currentPassword: "dogru-sifre" } }), env: e });
+  assert.equal(noAuth.status, 401);
+  const wrong = await passwordCode.onRequestPost({ request: req("/api/admin/password/code", { method: "POST", token, body: { purpose: "change", currentPassword: "x" } }), env: e });
+  assert.equal(wrong.status, 401);
+  assert.equal(sent.length, 0);
+
+  const asked = await passwordCode.onRequestPost({ request: req("/api/admin/password/code", { method: "POST", token, body: { purpose: "change", currentPassword: "dogru-sifre" } }), env: e });
+  assert.equal(asked.status, 200);
+  assert.equal((await asked.json()).sentTo, "sa…ip@example.com");
+  assert.equal(sent[0].to, "sahip@example.com");
+  const code = sent[0].subject.match(/\d{6}/)[0];
+
+  const tooSoon = await passwordCode.onRequestPost({ request: req("/api/admin/password/code", { method: "POST", body: { purpose: "reset" } }), env: e });
+  assert.equal(tooSoon.status, 429);
+
+  const set = (body) => password.onRequestPost({ request: req("/api/admin/password", { method: "POST", body }), env: e });
+  assert.equal((await set({ code, newPassword: "kisa" })).status, 422);
+  assert.equal((await set({ code: code === "000000" ? "111111" : "000000", newPassword: "yeni-sifre-123" })).status, 401);
+  const ok = await set({ code, newPassword: "yeni-sifre-123" });
+  assert.equal(ok.status, 200);
+  const { token: fresh } = await ok.json();
+  assert.equal((await set({ code, newPassword: "baska-sifre-1" })).status, 401); // a code works once
+
+  assert.equal(await verifyToken(e, token), false); // old sessions are signed out
+  assert.equal(await verifyToken(e, fresh), true);
+  assert.equal((await loginWith("dogru-sifre")).status, 401);
+  assert.equal((await loginWith("yeni-sifre-123")).status, 200);
+});
+
+test("a code stops working after five wrong tries", async () => {
+  const sent = [];
+  const e = { ...env(), ADMIN_EMAIL: "a@b.co", MAILER: { fetch: async (_u, init) => { sent.push(JSON.parse(init.body)); return new Response("ok"); } } };
+  await passwordCode.onRequestPost({ request: req("/api/admin/password/code", { method: "POST", body: { purpose: "reset" } }), env: e });
+  const code = sent[0].subject.match(/\d{6}/)[0];
+  const other = code === "000000" ? "111111" : "000000";
+  for (let i = 0; i < 5; i++) {
+    await password.onRequestPost({ request: req("/api/admin/password", { method: "POST", body: { code: other, newPassword: "yeni-sifre-123" } }), env: e });
+  }
+  const late = await password.onRequestPost({ request: req("/api/admin/password", { method: "POST", body: { code, newPassword: "yeni-sifre-123" } }), env: e });
+  assert.equal(late.status, 401);
+});
+
+test("password codes need the mailer to be set up", async () => {
+  const res = await passwordCode.onRequestPost({ request: req("/api/admin/password/code", { method: "POST", body: { purpose: "reset" } }), env: env() });
+  assert.equal(res.status, 503);
 });

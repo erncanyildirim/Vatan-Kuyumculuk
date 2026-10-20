@@ -99,7 +99,7 @@ async function api(path, options = {}) {
   } catch {
     body = null;
   }
-  if (res.status === 401 && path !== "/api/admin/login") {
+  if (res.status === 401 && !path.startsWith("/api/admin/login") && !path.startsWith("/api/admin/password")) {
     showLogin("Oturum süresi doldu, tekrar giriş yapın.");
     throw new Error("unauthorized");
   }
@@ -116,6 +116,8 @@ function showLogin(message = "") {
   $("#editor-view").hidden = true;
   $("#logout").hidden = true;
   $("#login-view").hidden = false;
+  $("#login-form").hidden = false;
+  $("#reset-form").hidden = true;
   $("#login-error").textContent = message;
   $("#password").focus();
 }
@@ -463,6 +465,95 @@ $("#login-form").addEventListener("submit", async (e) => {
 });
 
 $("#logout").addEventListener("click", () => showLogin());
+
+// ---------- password ----------
+
+/** Asks the server to e-mail a code; [status] shows where it went or why it failed. */
+async function sendPasswordCode(body, button, status, error) {
+  error.textContent = "";
+  status.textContent = "";
+  button.disabled = true;
+  try {
+    const { sentTo } = await api("/api/admin/password/code", { method: "POST", body: JSON.stringify(body) });
+    status.textContent = `Kod ${sentTo} adresine gönderildi. Gelen kutusunu ve spam klasörünü kontrol edin.`;
+    button.textContent = "Kodu tekrar gönder";
+    return true;
+  } catch (err) {
+    error.textContent = err.message;
+    return false;
+  } finally {
+    button.disabled = false;
+  }
+}
+
+/** Sets the new password with the code; returns the fresh session token or null. */
+async function setNewPassword(code, next, repeat, error) {
+  error.textContent = "";
+  if (next !== repeat) {
+    error.textContent = "Yeni şifreler aynı değil";
+    return null;
+  }
+  try {
+    const { token: t } = await api("/api/admin/password", {
+      method: "POST",
+      body: JSON.stringify({ code: code.trim(), newPassword: next }),
+    });
+    return t;
+  } catch (err) {
+    error.textContent = err.message;
+    return null;
+  }
+}
+
+function signedIn(t) {
+  token = t;
+  sessionStorage.setItem(TOKEN_KEY, t);
+}
+
+$("#pw-send").addEventListener("click", async () => {
+  const current = $("#pw-current");
+  if (!current.value) {
+    $("#pw-error").textContent = "Önce mevcut şifrenizi yazın";
+    current.focus();
+    return;
+  }
+  const ok = await sendPasswordCode({ purpose: "change", currentPassword: current.value }, $("#pw-send"), $("#pw-sent"), $("#pw-error"));
+  if (ok) $("#pw-code").focus();
+});
+
+$("#password-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const t = await setNewPassword($("#pw-code").value, $("#pw-new").value, $("#pw-repeat").value, $("#pw-error"));
+  if (!t) return;
+  signedIn(t);
+  e.target.reset();
+  $("#pw-send").textContent = "E-postama kod gönder";
+  $("#pw-sent").innerHTML = '<span class="ok">Şifreniz değişti. Diğer cihazlarda yeni şifreyle giriş yapmanız gerekecek.</span>';
+});
+
+$("#forgot").addEventListener("click", () => {
+  $("#login-form").hidden = true;
+  $("#reset-form").hidden = false;
+  $("#reset-error").textContent = "";
+  $("#reset-sent").textContent = "";
+});
+
+$("#reset-back").addEventListener("click", () => showLogin());
+
+$("#reset-send").addEventListener("click", async () => {
+  const ok = await sendPasswordCode({ purpose: "reset" }, $("#reset-send"), $("#reset-sent"), $("#reset-error"));
+  if (ok) $("#reset-code").focus();
+});
+
+$("#reset-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const t = await setNewPassword($("#reset-code").value, $("#reset-new").value, $("#reset-repeat").value, $("#reset-error"));
+  if (!t) return;
+  signedIn(t);
+  e.target.reset();
+  $("#reset-send").textContent = "Kod gönder";
+  await showEditor();
+});
 $("#save").addEventListener("click", save);
 $("#group-filter").addEventListener("change", renderProducts);
 $("#add-hours").addEventListener("click", () => {

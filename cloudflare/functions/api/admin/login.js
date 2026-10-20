@@ -1,5 +1,6 @@
 // POST /api/admin/login {password} -> {token}
-import { clearFailures, isJson, isLocked, issueToken, recordFailure, safeEqual } from "../../_lib/auth.js";
+import { clearFailures, isJson, isLocked, issueToken, recordFailure } from "../../_lib/auth.js";
+import { checkPassword } from "../../_lib/password.js";
 import { json } from "../../_lib/config.js";
 
 export async function onRequestPost({ request, env }) {
@@ -14,7 +15,7 @@ export async function onRequestPost({ request, env }) {
   } catch {
     return json({ error: "Geçersiz istek" }, { status: 400 });
   }
-  if (!(await safeEqual(password, env.ADMIN_PASSWORD))) {
+  if (!(await checkPassword(env, password))) {
     await recordFailure(request, env);
     return json({ error: "Şifre hatalı" }, { status: 401 });
   }

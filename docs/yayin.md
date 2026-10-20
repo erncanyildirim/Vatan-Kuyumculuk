@@ -65,6 +65,25 @@ Sınır bir gün aşılsa bile uygulamalar son kayıtlı ayarlarla ve canlı fiy
 Not: `ADMIN_PASSWORD` veya `SESSION_SECRET` değiştirilirse yeni değer bir sonraki yayında (deploy) geçerli olur;
 şifre değişince açık tüm admin oturumları kapanır.
 
+## Panelden şifre değiştirme (e-posta kodu)
+
+Panelde **Şifre** sekmesi (mevcut şifre + e-postaya gelen 6 haneli kod) ve girişte **Şifremi unuttum**
+(yalnızca kod) vardır. Panelden belirlenen şifre KV'de PBKDF2 özeti olarak saklanır ve `ADMIN_PASSWORD`'ün
+önüne geçer; KV'deki `admin-password` anahtarı silinirse yeniden `ADMIN_PASSWORD` geçerli olur.
+
+Kodlar `cloudflare/mailer` Worker'ı (`vatan-mailer`, herkese açık adresi yok) ile
+`panel@vatankuyumculuk.com.tr` adresinden gönderilir. Kurulum (bir kez):
+
+1. Cloudflare → vatankuyumculuk.com.tr → **Email → Email Routing** → **Enable** (gerekli DNS kayıtlarını
+   Cloudflare ekler). **Destination addresses** altına kodların gideceği adresi ekleyin ve gelen doğrulama
+   e-postasındaki bağlantıya tıklayın. Ücretsiz planda yalnızca doğrulanmış adreslere gönderim yapılabilir.
+2. ```bash
+   cd cloudflare
+   npx wrangler deploy -c mailer/wrangler.toml
+   npx wrangler pages secret put ADMIN_EMAIL --project-name vatankuyumculuk   # kodların gideceği adres
+   npx wrangler pages deploy --branch main
+   ```
+
 ## Otomatik yayın (GitHub)
 
 Cloudflare'e geçilince `.github/workflows/ci.yml` içine web derlemesinden sonra `cloudflare` klasöründe

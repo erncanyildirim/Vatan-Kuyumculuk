@@ -69,3 +69,6 @@ button.wide { width: 100%; margin-top: 8px; }
     .hours-row .days { grid-column: 1 / -1; }
 }
 input:invalid { border-color: #FF6B6B; }
+button.link { background: none; border: 0; padding: 8px 0 0; width: 100%; color: var(--gold); font-weight: 500; }
+.ok { color: #3DDC97; }
+.card h2 { margin: 0 0 4px; font-size: 18px; }

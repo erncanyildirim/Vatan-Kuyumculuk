@@ -29,6 +29,20 @@
             <input id="password" type="password" autocomplete="current-password" required>
             <p id="login-error" class="error" role="alert"></p>
             <button type="submit" class="primary wide">Giriş yap</button>
+            <button type="button" id="forgot" class="link">Şifremi unuttum</button>
+        </form>
+
+        <form id="reset-form" class="card narrow" hidden>
+            <h1>Şifre sıfırlama</h1>
+            <p class="muted">Kayıtlı e-posta adresine 6 haneli bir kod gönderilir. Kodu ve yeni şifreyi yazın.</p>
+            <button type="button" id="reset-send" class="wide">Kod gönder</button>
+            <p id="reset-sent" class="muted" role="status"></p>
+            <label>E-postadaki kod <input id="reset-code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="\d{6}" required></label>
+            <label>Yeni şifre <input id="reset-new" type="password" autocomplete="new-password" minlength="8" required></label>
+            <label>Yeni şifre (tekrar) <input id="reset-repeat" type="password" autocomplete="new-password" minlength="8" required></label>
+            <p id="reset-error" class="error" role="alert"></p>
+            <button type="submit" class="primary wide">Şifreyi değiştir</button>
+            <button type="button" id="reset-back" class="link">Girişe dön</button>
         </form>
     </section>
 
@@ -39,6 +53,7 @@
             <button role="tab" data-tab="store" aria-selected="false">Mağaza</button>
             <button role="tab" data-tab="announcement" aria-selected="false">Duyuru</button>
             <button role="tab" data-tab="advanced" aria-selected="false">Gelişmiş</button>
+            <button role="tab" data-tab="security" aria-selected="false">Şifre</button>
         </nav>
 
         <div data-panel="prices">
@@ -101,6 +116,22 @@
                 <label>Fiyat kaynağı adresi <input data-field="feed.url" maxlength="200"></label>
                 <p class="muted">Harem Altın adresini değiştirirse buradan güncelleyebilirsiniz; uygulama güncellemesi gerekmez.</p>
             </div>
+        </div>
+
+        <div data-panel="security" hidden>
+            <form id="password-form" class="card form">
+                <h2>Şifre değiştir</h2>
+                <p class="muted">Güvenlik için önce mevcut şifrenizi yazın; kayıtlı e-posta adresinize 6 haneli bir kod gelir.
+                    Kod 10 dakika geçerlidir. Şifre değişince diğer cihazlardaki oturumlar kapanır.</p>
+                <label>Mevcut şifre <input id="pw-current" type="password" autocomplete="current-password" required></label>
+                <button type="button" id="pw-send">E-postama kod gönder</button>
+                <p id="pw-sent" class="muted" role="status"></p>
+                <label>E-postadaki kod <input id="pw-code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="\d{6}" required></label>
+                <label>Yeni şifre (en az 8 karakter) <input id="pw-new" type="password" autocomplete="new-password" minlength="8" required></label>
+                <label>Yeni şifre (tekrar) <input id="pw-repeat" type="password" autocomplete="new-password" minlength="8" required></label>
+                <p id="pw-error" class="error" role="alert"></p>
+                <button type="submit" class="primary">Şifreyi değiştir</button>
+            </form>
         </div>
 
         <div class="savebar">

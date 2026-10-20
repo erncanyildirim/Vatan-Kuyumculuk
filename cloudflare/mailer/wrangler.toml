@@ -1,0 +1,13 @@
+# Sends the admin panel's verification codes. It has no public URL: only the Pages project reaches it,
+# through the MAILER service binding in ../wrangler.toml.
+# Needs Email Routing enabled on vatankuyumculuk.com.tr and the recipient verified there
+# (Cloudflare → vatankuyumculuk.com.tr → Email → Email Routing → Destination addresses). See docs/yayin.md.
+# Deploy: npx wrangler deploy -c mailer/wrangler.toml
+name = "vatan-mailer"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+workers_dev = false
+preview_urls = false
+
+[[send_email]]
+name = "EMAIL"

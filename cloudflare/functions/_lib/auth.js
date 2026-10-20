@@ -1,5 +1,6 @@
-// Single-admin authentication: a password (secret ADMIN_PASSWORD) is exchanged for a
+// Single-admin authentication: the password (see password.js) is exchanged for a
 // short-lived HMAC-signed token. No user data is stored.
+import { passwordStamp } from "./password.js";
 
 const TOKEN_TTL_MS = 12 * 60 * 60 * 1000;
 const MAX_FAILURES = 8;
@@ -20,25 +21,12 @@ function fromB64url(text) {
 }
 
 async function hmacKey(env) {
-  // Both secrets feed the key, so changing the password also signs out every open session.
-  const secret = `${env.SESSION_SECRET ?? ""}:${env.ADMIN_PASSWORD ?? ""}`;
+  // The password feeds the key, so changing it also signs out every open session.
+  const secret = `${env.SESSION_SECRET ?? ""}:${await passwordStamp(env)}`;
   return crypto.subtle.importKey("raw", enc.encode(`vatan-admin:${secret}`), { name: "HMAC", hash: "SHA-256" }, false, [
     "sign",
     "verify",
   ]);
-}
-
-/** Constant-time comparison of two strings via their SHA-256 digests. */
-export async function safeEqual(a, b) {
-  const [da, db] = await Promise.all([
-    crypto.subtle.digest("SHA-256", enc.encode(a)),
-    crypto.subtle.digest("SHA-256", enc.encode(b)),
-  ]);
-  const x = new Uint8Array(da);
-  const y = new Uint8Array(db);
-  let diff = 0;
-  for (let i = 0; i < x.length; i++) diff |= x[i] ^ y[i];
-  return diff === 0;
 }
 
 export async function issueToken(env, now = Date.now()) {
