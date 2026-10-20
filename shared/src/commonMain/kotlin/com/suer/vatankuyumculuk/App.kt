@@ -117,7 +117,7 @@ fun App(startScreen: String? = null) {
             if (maxWidth >= 840.dp) {
                 Row(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing)) {
                     NavigationRail(containerColor = c.surface, header = {
-                        BrandMark(Modifier.padding(top = 12.dp).height(26.dp))
+                        BrandMark(Modifier.padding(top = 12.dp).height(52.dp))
                         Spacer(Modifier.height(12.dp))
                     }) {
                         Destination.entries.forEach { d ->

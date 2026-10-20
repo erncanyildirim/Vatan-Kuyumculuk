@@ -175,7 +175,7 @@ private fun Modifier.contentWidth(): Modifier = this.widthIn(max = 720.dp).fillM
 @Composable
 private fun Header(state: MarketState, quiet: Boolean, modifier: Modifier = Modifier) {
     Row(modifier, verticalAlignment = Alignment.CenterVertically) {
-        BrandMark(Modifier.height(40.dp))
+        BrandMark(Modifier.height(52.dp))
         Spacer(Modifier.width(10.dp))
         Column(Modifier.weight(1f)) {
             Text(

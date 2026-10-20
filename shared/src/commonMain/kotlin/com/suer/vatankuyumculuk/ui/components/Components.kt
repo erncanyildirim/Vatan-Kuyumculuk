@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -44,34 +45,21 @@ import com.suer.vatankuyumculuk.core.TrTime
 import com.suer.vatankuyumculuk.data.market.ConnectionStatus
 import com.suer.vatankuyumculuk.data.market.Tick
 import com.suer.vatankuyumculuk.resources.Res
-import com.suer.vatankuyumculuk.resources.logo_mark
+import com.suer.vatankuyumculuk.resources.logo_shop
 import com.suer.vatankuyumculuk.ui.icons.AppIcons
 import com.suer.vatankuyumculuk.ui.theme.AppTheme
-import com.suer.vatankuyumculuk.ui.theme.BrandNavy
 import com.suer.vatankuyumculuk.ui.theme.TabularNumbers
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 
-/** The gold Vatan mark; on light backgrounds it sits on a navy tile for contrast. */
+/** The shop's round logo (gold ring on cream), readable on both light and dark backgrounds. */
 @Composable
 fun BrandMark(modifier: Modifier = Modifier) {
-    val image = @Composable { m: Modifier ->
-        Image(
-            painter = painterResource(Res.drawable.logo_mark),
-            contentDescription = "Vatan Kuyumculuk logosu",
-            modifier = m,
-        )
-    }
-    if (AppTheme.colors.isDark) {
-        image(modifier)
-    } else {
-        Box(
-            Modifier
-                .clip(RoundedCornerShape(10.dp))
-                .background(BrandNavy)
-                .padding(horizontal = 6.dp, vertical = 5.dp),
-        ) { image(modifier) }
-    }
+    Image(
+        painter = painterResource(Res.drawable.logo_shop),
+        contentDescription = "Vatan Kuyumculuk logosu",
+        modifier = modifier.aspectRatio(1f).clip(CircleShape),
+    )
 }
 
 /** Current device time, refreshed every [periodMs]. */

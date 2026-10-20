@@ -74,7 +74,7 @@ fun StoreScreen(store: StoreInfo, modifier: Modifier = Modifier) {
                         .padding(24.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    BrandMark(Modifier.height(64.dp))
+                    BrandMark(Modifier.height(120.dp))
                     Spacer(Modifier.height(14.dp))
                     Text(
                         store.name,
