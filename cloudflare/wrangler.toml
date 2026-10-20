@@ -13,7 +13,3 @@ pages_build_output_dir = "../webApp/build/dist/composeWebCompatibility/productio
 binding = "CONFIG"
 id = "55dbeaeb3bfc4836b5ed8293dd3ca7b4"
 
-# Sends the e-mailed codes for changing the admin password (cloudflare/mailer).
-[[services]]
-binding = "MAILER"
-service = "vatan-mailer"
