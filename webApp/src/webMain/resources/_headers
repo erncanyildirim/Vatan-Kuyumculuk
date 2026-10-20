@@ -1,7 +1,10 @@
 # Cloudflare Pages static headers (no Functions call, so static traffic stays outside the free Functions quota).
+# no-cache: browsers revalidate every file (cheap 304s), so a new deploy shows up at once. Without it
+# the zone's Browser Cache TTL keeps scripts and images in browsers for 4 hours.
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
+  Cache-Control: no-cache
 
 /admin/*
   X-Robots-Tag: noindex, nofollow
