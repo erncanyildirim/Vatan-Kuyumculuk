@@ -8,6 +8,8 @@ Osmaniye'deki Vatan Kuyumculuk için canlı altın ve döviz fiyatı uygulaması
 - **Canlı fiyatlar:** Her cihaz Harem Altın'ın herkese açık Socket.IO yayınına (`wss://hrmsocketonly.haremaltin.com`)
   doğrudan bağlanır. Bağlantı yalnızca uygulama açıkken tutulur, kopunca kendiliğinden yeniden kurulur, son fiyatlar
   cihazda saklanır. Kod: `shared/.../data/harem/`, `shared/.../data/market/`.
+- **Mağaza TV ekranı:** `/tv/` adresi televizyonda tam ekran açılır; ürünler ve ekrana özel farklar admin panelindeki
+  "Mağaza ekranı" sekmesinden seçilir.
 - **Mağaza ayarları:** Ürün bazında fark, sabit fiyat, gizleme, duyuru ve iletişim bilgileri `/api/config` belgesinden
   okunur. Şimdilik bu belge `site/api/config` dosyasıdır; alan adı alınınca Cloudflare'deki `/admin/` paneline geçilir.
   Ayrıntı: `docs/api-contract.md`.

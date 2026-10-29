@@ -26,7 +26,15 @@ const DEFAULTS = {
   },
   announcement: { enabled: false, text: "", style: "info" },
   products: {},
+  tv: null,
 };
+
+// Short names on the TV screen; same defaults as tv/tv.js.
+const TV_DEFAULTS = [
+  ["ALTIN", "HAS"], ["AYAR22", "BİLEZİK"], ["CEYREK_YENI", "ÇEYREK"], ["YARIM_YENI", "YARIM"], ["TEK_YENI", "TAM"],
+  ["KULCEALTIN", "GRAM"], ["AYAR14", "14 AYAR"], ["GUMUSTRY", "GÜMÜŞ"], ["USDTRY", "DOLAR"], ["EURTRY", "EURO"],
+];
+const defaultTvItems = () => TV_DEFAULTS.map(([code, label]) => ({ code, label, buyAdj: 0, sellAdj: 0, adjUnit: "amount" }));
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -135,6 +143,7 @@ async function showEditor() {
   renderProducts();
   renderFields();
   renderHours();
+  renderTv();
   updateDirty();
   connectFeed();
 }
@@ -148,6 +157,7 @@ function merge(base, doc) {
     store: { ...base.store, ...(doc.store || {}) },
     announcement: { ...base.announcement, ...(doc.announcement || {}) },
     products: { ...(doc.products || {}) },
+    tv: { items: Array.isArray(doc.tv?.items) ? doc.tv.items.map((i) => ({ ...i })) : defaultTvItems() },
   };
 }
 
@@ -343,6 +353,87 @@ function renderHours() {
   });
 }
 
+// ---------- TV screen ----------
+
+function tvLine(item) {
+  const p = catalog.find((x) => x.code === item.code);
+  const raw = live[item.code];
+  if (!p || !raw) return "TV'de görünen: canlı veri bekleniyor";
+  const pct = item.adjUnit === "percent";
+  const sell = adjust(raw.sell, item.sellAdj || 0, pct);
+  const buy = adjust(raw.buy, item.buyAdj || 0, pct);
+  return `TV'de: satış <b>${fmt(sell, p.decimals)}</b> · alış <b>${fmt(buy, p.decimals)}</b> ${p.currency}`;
+}
+
+function updateTvRow(row) {
+  const item = config.tv.items[Number(row.dataset.i)];
+  if (item) $("[data-result]", row).innerHTML = tvLine(item);
+}
+
+function renderTv() {
+  const root = $("#tv-items");
+  root.innerHTML = "";
+  const items = config.tv.items;
+  items.forEach((item, i) => {
+    const p = catalog.find((x) => x.code === item.code);
+    const row = document.createElement("div");
+    row.className = "product tv-item";
+    row.dataset.i = i;
+    row.innerHTML = `
+      <div class="head">
+        <div class="name">${p ? productLabel(p) : item.code}</div>
+        <span class="live" data-live></span>
+        <button type="button" class="ghost" data-up aria-label="Yukarı taşı" ${i === 0 ? "disabled" : ""}>↑</button>
+        <button type="button" class="ghost" data-down aria-label="Aşağı taşı" ${i === items.length - 1 ? "disabled" : ""}>↓</button>
+        <button type="button" class="ghost" data-remove>Kaldır</button>
+      </div>
+      <div class="body">
+        <label>TV'deki ad <input data-k="label" maxlength="16" placeholder="${p ? p.name : ""}"></label>
+        <label>Alışa ekle <input data-k="buyAdj" inputmode="text" placeholder="örn. -38"></label>
+        <label>Satışa ekle <input data-k="sellAdj" inputmode="text" placeholder="örn. 50"></label>
+        <label>Birim <select data-k="adjUnit"><option value="amount">TL</option><option value="percent">Yüzde (%)</option></select></label>
+      </div>
+      <div class="result muted" data-result></div>`;
+    $("[data-k=label]", row).value = item.label ?? "";
+    $("[data-k=buyAdj]", row).value = item.buyAdj ? String(item.buyAdj).replace(".", ",") : "";
+    $("[data-k=sellAdj]", row).value = item.sellAdj ? String(item.sellAdj).replace(".", ",") : "";
+    $("[data-k=adjUnit]", row).value = item.adjUnit ?? "amount";
+    if (live[item.code] && p) $("[data-live]", row).textContent = `Canlı: ${fmt(live[item.code].buy, p.decimals)} / ${fmt(live[item.code].sell, p.decimals)}`;
+    for (const input of $$("[data-k]", row)) {
+      input.addEventListener("input", () => {
+        const k = input.dataset.k;
+        const v = k === "label" || k === "adjUnit" ? input.value : parseNum(input.value);
+        input.setCustomValidity(Number.isNaN(v) ? "Geçerli bir sayı girin, örn. 50 veya -38,5" : "");
+        if (Number.isNaN(v)) { input.reportValidity(); return; }
+        item[k] = v ?? 0;
+        updateTvRow(row);
+        updateDirty();
+      });
+    }
+    $("[data-up]", row).addEventListener("click", () => moveTv(i, -1));
+    $("[data-down]", row).addEventListener("click", () => moveTv(i, 1));
+    $("[data-remove]", row).addEventListener("click", () => {
+      items.splice(i, 1);
+      renderTv();
+      updateDirty();
+    });
+    root.append(row);
+    updateTvRow(row);
+  });
+  if (!items.length) root.innerHTML = '<p class="muted">TV ekranında hiçbir ürün seçili değil. Aşağıdan ürün ekleyin.</p>';
+  const add = $("#tv-add");
+  add.innerHTML = '<option value="">+ Ürün ekle…</option>';
+  const used = new Set(items.map((x) => x.code));
+  for (const p of catalog) if (!used.has(p.code)) add.add(new Option(`${p.groupTitle} · ${p.name}${p.variant ? ` (${p.variant})` : ""}`, p.code));
+}
+
+function moveTv(i, d) {
+  const items = config.tv.items;
+  [items[i], items[i + d]] = [items[i + d], items[i]];
+  renderTv();
+  updateDirty();
+}
+
 // ---------- save ----------
 
 function updateDirty() {
@@ -375,6 +466,7 @@ async function save() {
       renderProducts();
       renderFields();
       renderHours();
+      renderTv();
     } else {
       // Edits made while saving stay on screen and remain unsaved.
       config.version = fresh.version;
@@ -427,6 +519,7 @@ function connectFeed() {
         const p = catalog.find((x) => x.code === card.dataset.code);
         if (p) updateCard(card, p);
       }
+      for (const row of $$(".tv-item")) updateTvRow(row);
     }
   };
   socket.onclose = () => {
@@ -490,6 +583,18 @@ $("#password-form").addEventListener("submit", async (e) => {
 });
 
 $("#save").addEventListener("click", save);
+$("#tv-add").addEventListener("change", (e) => {
+  const code = e.target.value;
+  if (!code || config.tv.items.length >= 20) return;
+  config.tv.items.push({ code, label: "", buyAdj: 0, sellAdj: 0, adjUnit: "amount" });
+  renderTv();
+  updateDirty();
+});
+$("#tv-reset").addEventListener("click", () => {
+  config.tv.items = defaultTvItems();
+  renderTv();
+  updateDirty();
+});
 $("#group-filter").addEventListener("change", renderProducts);
 $("#add-hours").addEventListener("click", () => {
   config.store.openingHours.push({ days: [6], open: "10:00", close: "17:00" });

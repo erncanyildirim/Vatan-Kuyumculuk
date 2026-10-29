@@ -37,6 +37,7 @@
     <section id="editor-view" hidden>
         <nav class="tabs" role="tablist">
             <button role="tab" data-tab="prices" aria-selected="true">Fiyatlar</button>
+            <button role="tab" data-tab="tv" aria-selected="false">Mağaza ekranı</button>
             <button role="tab" data-tab="store" aria-selected="false">Mağaza</button>
             <button role="tab" data-tab="announcement" aria-selected="false">Duyuru</button>
             <button role="tab" data-tab="advanced" aria-selected="false">Gelişmiş</button>
@@ -56,6 +57,19 @@
                 </select>
             </div>
             <div id="products"></div>
+        </div>
+
+        <div data-panel="tv" hidden>
+            <div class="card tip">
+                <strong>Mağaza ekranı (TV)</strong> <a href="../tv/" target="_blank" rel="noopener">/tv/</a> adresi televizyonda
+                tam ekran açılır. Burada <em>hangi fiyatların</em> görüneceğini, sırasını ve ekrana özel
+                <em>alış/satış farkını</em> seçersiniz; uygulamadaki fiyatları etkilemez.
+            </div>
+            <div id="tv-items"></div>
+            <div class="row">
+                <select id="tv-add" aria-label="Ürün ekle"></select>
+                <button type="button" id="tv-reset" class="ghost">Varsayılan listeye dön</button>
+            </div>
         </div>
 
         <div data-panel="store" hidden>

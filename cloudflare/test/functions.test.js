@@ -124,6 +124,15 @@ test("login, save and public read round trip", async () => {
   assert.equal(notModified.status, 304);
 });
 
+test("tv settings are validated and kept", async () => {
+  const { sanitizeConfig, ValidationError } = await import("../functions/_lib/config.js");
+  const out = sanitizeConfig({ tv: { items: [{ code: "ALTIN", label: " HAS ", sellAdj: "50", buyAdj: "-38,5" }] } });
+  assert.deepEqual(out.tv.items[0], { code: "ALTIN", label: "HAS", buyAdj: -38.5, sellAdj: 50, adjUnit: "amount" });
+  assert.equal(sanitizeConfig({}).tv, undefined);
+  assert.throws(() => sanitizeConfig({ tv: { items: [{ code: "ALTIN" }, { code: "ALTIN" }] } }), ValidationError);
+  assert.throws(() => sanitizeConfig({ tv: { items: [{ code: "x y" }] } }), ValidationError);
+});
+
 test("login locks after repeated failures", async () => {
   const e = env();
   for (let i = 0; i < 8; i++) {

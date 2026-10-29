@@ -118,7 +118,33 @@ export function sanitizeConfig(input) {
     if (!isDefault) products[code] = entry;
   }
 
-  return { schema: 1, feed, store, announcement, products };
+  const out = { schema: 1, feed, store, announcement, products };
+  if (input.tv !== undefined && input.tv !== null) out.tv = sanitizeTv(input.tv);
+  return out;
+}
+
+/** The shop TV screen (/tv/): which products it shows, in which order, and its own price differences. */
+function sanitizeTv(tvIn) {
+  if (typeof tvIn !== "object" || Array.isArray(tvIn)) throw new ValidationError("TV ayarları geçersiz");
+  const itemsIn = Array.isArray(tvIn.items) ? tvIn.items : [];
+  if (itemsIn.length > 20) throw new ValidationError("TV ekranında en fazla 20 ürün gösterilebilir");
+  const seen = new Set();
+  const items = itemsIn.map((it) => {
+    const code = str(it?.code, 24, "TV ürün kodu");
+    if (!CODE.test(code)) throw new ValidationError(`Geçersiz ürün kodu: ${code}`);
+    if (seen.has(code)) throw new ValidationError(`${code} TV listesinde iki kez var`);
+    seen.add(code);
+    const unit = UNITS.has(it.adjUnit) ? it.adjUnit : "amount";
+    const limit = unit === "percent" ? 50 : 1_000_000;
+    return {
+      code,
+      label: str(it.label, 16, `${code} TV adı`),
+      buyAdj: num(it.buyAdj, `${code} TV alış farkı`, { min: -limit, max: limit }),
+      sellAdj: num(it.sellAdj, `${code} TV satış farkı`, { min: -limit, max: limit }),
+      adjUnit: unit,
+    };
+  });
+  return { items };
 }
 
 export async function readConfig(env) {

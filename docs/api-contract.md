@@ -49,3 +49,18 @@ dosya olarak sunulur; alan adına geçilince admin paneli (`/admin/`) yazar ve C
 
 Ürün kodları Harem Altın kodlarıdır; liste `webApp/src/webMain/resources/catalog.json` dosyasındadır
 (`Catalog.kt` ile aynı olduğu `CatalogJsonTest` ile denetlenir).
+
+## Mağaza ekranı (`/tv/`)
+
+`tv.items` (isteğe bağlı) televizyon ekranında hangi ürünlerin, hangi sırayla ve hangi farkla gösterileceğini belirler.
+Alan yoksa 10 varsayılan ürün (Has, Bilezik, Çeyrek, Yarım, Tam, Gram, 14 Ayar, Gümüş, Dolar, Euro) farksız gösterilir.
+Fark yalnızca TV ekranı içindir; uygulamadaki `products` ayarlarından bağımsızdır.
+
+```json
+"tv": { "items": [
+  { "code": "ALTIN", "label": "HAS", "buyAdj": -10, "sellAdj": 20, "adjUnit": "amount" }
+] }
+```
+
+`label` en fazla 16 karakter (boşsa katalog adı), en fazla 20 ürün, `adjUnit` `amount` veya `percent`.
+Sayfa: `webApp/.../resources/tv/`; ayar paneli: Yönetim paneli → "Mağaza ekranı" sekmesi.
