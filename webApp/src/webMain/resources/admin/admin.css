@@ -72,3 +72,5 @@ input:invalid { border-color: #FF6B6B; }
 .ok { color: #3DDC97; }
 .card h2 { margin: 0 0 4px; font-size: 18px; }
 #password-form input:invalid { border-color: var(--line); }
+button:disabled { opacity: 0.4; cursor: default; }
+.tv-item .head button { padding: 6px 12px; }
